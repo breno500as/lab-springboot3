@@ -8,19 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.labspringboot3.entity.Person;
-import com.br.labspringboot3.repository.PersonRepository;
+import com.br.labspringboot3.service.PersonService;
 
 @RestController
 @RequestMapping("persons")
 public class PersonController {
 
 	@Autowired
-	private PersonRepository personRepository;
+	private PersonService personService;
 
 	@PostMapping
 	public ResponseEntity<Person> create() {
-		return ResponseEntity.status(HttpStatus.CREATED).body(this.personRepository.save(new Person("brahminha")));
-
+		return ResponseEntity.status(HttpStatus.CREATED).body(this.personService.save(new Person("brahminha")));
 	}
 
 }
