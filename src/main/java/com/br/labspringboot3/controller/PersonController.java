@@ -27,15 +27,20 @@ public class PersonController {
 	public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO person) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(this.personService.save(person));
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<PersonDTO> update(@RequestBody PersonDTO person) {
 		return ResponseEntity.ok().body(this.personService.update(person));
 	}
-	
+
 	@GetMapping("{id}")
 	public ResponseEntity<PersonDTO> findById(@PathVariable(name = "id") Long id) {
 		return ResponseEntity.ok().body(this.personService.findById(id));
+	}
+
+	@GetMapping(value = "/v2")
+	public ResponseEntity<Iterable<PersonDTO>> findAllV2() {
+		return ResponseEntity.ok().body(this.personService.findAll());
 	}
 
 	@GetMapping
