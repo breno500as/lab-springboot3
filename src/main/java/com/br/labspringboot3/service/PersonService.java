@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.br.labspringboot3.dto.PersonDTO;
 import com.br.labspringboot3.entity.PersonEntity;
-import com.br.labspringboot3.exception.ExpectationFailedException;
+import com.br.labspringboot3.exception.NotFoundException;
 import com.br.labspringboot3.repository.PersonRepository;
 
 @Service
@@ -58,7 +58,7 @@ public class PersonService {
 
 	private PersonEntity findEntityById(Long id) {
 		return this.personRepository.findById(id)
-				.orElseThrow(() -> new ExpectationFailedException("person not found!"));
+				.orElseThrow(() -> new NotFoundException("person not found!"));
 	}
 
 	public PersonDTO findById(Long id) {

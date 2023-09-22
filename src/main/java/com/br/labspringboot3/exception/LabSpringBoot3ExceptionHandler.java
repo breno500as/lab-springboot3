@@ -22,11 +22,11 @@ public class LabSpringBoot3ExceptionHandler extends ResponseEntityExceptionHandl
 
 	}
 
-	@ExceptionHandler(ExpectationFailedException.class)
-	public final ResponseEntity<LabSpringBoot3Response> handleExpectationFailedException(Exception e, WebRequest wr) {
+	@ExceptionHandler(NotFoundException.class)
+	public final ResponseEntity<LabSpringBoot3Response> handleNotFounddException(Exception e, WebRequest wr) {
 		final LabSpringBoot3Response lResponse = new LabSpringBoot3Response(LocalDateTime.now(), e.getMessage(),
 				wr.getDescription(false));
-		return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(lResponse);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(lResponse);
 
 	}
 
