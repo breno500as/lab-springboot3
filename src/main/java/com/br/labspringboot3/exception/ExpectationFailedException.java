@@ -11,4 +11,8 @@ public class ExpectationFailedException extends RuntimeException {
 	 */
 	private static final long serialVersionUID = 5467424824208697951L;
 
+	public ExpectationFailedException(String msg) {
+		super(msg);
+	}
+
 }
