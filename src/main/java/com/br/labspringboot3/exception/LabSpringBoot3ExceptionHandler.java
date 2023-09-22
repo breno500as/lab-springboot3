@@ -18,7 +18,7 @@ public class LabSpringBoot3ExceptionHandler extends ResponseEntityExceptionHandl
 	public final ResponseEntity<LabSpringBoot3Response> handleAllExceptions(Exception e, WebRequest wr) {
 		final LabSpringBoot3Response lResponse = new LabSpringBoot3Response(LocalDateTime.now(), e.getMessage(),
 				wr.getDescription(false));
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(lResponse);
+		return ResponseEntity.internalServerError().body(lResponse);
 
 	}
 

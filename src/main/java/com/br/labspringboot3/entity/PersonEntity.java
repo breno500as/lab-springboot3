@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Person implements Serializable {
+public class PersonEntity implements Serializable {
 
 	/**
 	 * 
@@ -21,11 +21,11 @@ public class Person implements Serializable {
 
 	private String name;
 
-	public Person() {
+	public PersonEntity() {
 
 	}
 
-	public Person(String name) {
+	public PersonEntity(String name) {
 		this.name = name;
 	}
 
