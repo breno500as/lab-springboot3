@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.br.labspringboot3.dto.PersonDTO;
 import com.br.labspringboot3.entity.PersonEntity;
+import com.br.labspringboot3.exception.BusinessLabSpringBoot3Exception;
 import com.br.labspringboot3.exception.NotFoundException;
 import com.br.labspringboot3.repository.PersonRepository;
+import com.br.labspringboot3.util.LabSpringBoot3Messages;
 
 @Service
 public class PersonService {
@@ -22,9 +24,15 @@ public class PersonService {
 	private Logger log = LoggerFactory.getLogger(PersonService.class);
 
 	public PersonDTO save(PersonDTO person) {
+		
+		if (person == null) {
+			throw new BusinessLabSpringBoot3Exception(LabSpringBoot3Messages.MSG_01);
+		}
+		
 		this.log.info("save person");
 
 		final PersonEntity personEntity = this.personRepository.save(new PersonEntity(person.getName()));
+		
 		return new PersonDTO(personEntity.getId(), personEntity.getName());
 	}
 
@@ -43,6 +51,7 @@ public class PersonService {
 	}
 
 	public List<PersonDTO> findAll() {
+		
 		this.log.info("find all persons");
 		
 		return StreamSupport.stream(this.personRepository.findAll().spliterator(), false)

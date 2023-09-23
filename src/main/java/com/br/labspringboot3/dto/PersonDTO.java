@@ -6,6 +6,11 @@ public class PersonDTO {
 
 	private String name;
 
+	public PersonDTO(String name) {
+		super();
+		this.name = name;
+	}
+
 	public PersonDTO(Long id, String name) {
 		this.id = id;
 		this.name = name;

@@ -23,10 +23,18 @@ public class LabSpringBoot3ExceptionHandler extends ResponseEntityExceptionHandl
 	}
 
 	@ExceptionHandler(NotFoundException.class)
-	public final ResponseEntity<LabSpringBoot3Response> handleNotFounddException(Exception e, WebRequest wr) {
+	public final ResponseEntity<LabSpringBoot3Response> handleNotFoundException(Exception e, WebRequest wr) {
 		final LabSpringBoot3Response lResponse = new LabSpringBoot3Response(LocalDateTime.now(), e.getMessage(),
 				wr.getDescription(false));
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(lResponse);
+
+	}
+
+	@ExceptionHandler(BusinessLabSpringBoot3Exception.class)
+	public final ResponseEntity<LabSpringBoot3Response> handleBussinessException(Exception e, WebRequest wr) {
+		final LabSpringBoot3Response lResponse = new LabSpringBoot3Response(LocalDateTime.now(), e.getMessage(),
+				wr.getDescription(false));
+		return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(lResponse);
 
 	}
 
