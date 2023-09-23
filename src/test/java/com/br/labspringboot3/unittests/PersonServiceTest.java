@@ -1,4 +1,4 @@
-package com.br.labspringboot3.unittests.mockito.service;
+package com.br.labspringboot3.unittests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
