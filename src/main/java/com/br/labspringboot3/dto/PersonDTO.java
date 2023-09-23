@@ -1,9 +1,12 @@
 package com.br.labspringboot3.dto;
 
+import jakarta.validation.constraints.NotNull;
+
 public class PersonDTO {
 
 	private Long id;
 
+	@NotNull
 	private String name;
 
 	public PersonDTO(String name) {
