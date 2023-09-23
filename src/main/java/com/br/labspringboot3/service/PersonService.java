@@ -37,6 +37,10 @@ public class PersonService {
 	}
 
 	public PersonDTO update(PersonDTO person) {
+		
+		if (person == null || person.getId() == null) {
+			throw new BusinessLabSpringBoot3Exception(LabSpringBoot3Messages.MSG_01);
+		}
 
 		this.log.info("update person");
 
