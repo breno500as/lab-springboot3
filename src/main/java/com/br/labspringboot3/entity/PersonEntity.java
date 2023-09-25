@@ -3,12 +3,15 @@ package com.br.labspringboot3.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "PERSON")
 public class PersonEntity implements Serializable {
 
 	/**
@@ -18,8 +21,10 @@ public class PersonEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
 	private Long id;
 
+	@Column(name = "NAME")
 	private String name;
 
 	public PersonEntity() {
