@@ -1,8 +1,15 @@
 package com.br.labspringboot3.dto;
 
+import java.io.Serializable;
+
 import jakarta.validation.constraints.NotNull;
 
-public class PersonDTO {
+public class PersonDTO implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 842882287900088600L;
 
 	private Long id;
 

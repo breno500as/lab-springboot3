@@ -37,5 +37,13 @@ public class LabSpringBoot3ExceptionHandler extends ResponseEntityExceptionHandl
 		return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(lResponse);
 
 	}
+	
+	@ExceptionHandler(InvalidJwtAuthenticationException.class)
+	public final ResponseEntity<LabSpringBoot3Response> handleInvalidJwtAuthenticationException(Exception e, WebRequest wr) {
+		final LabSpringBoot3Response lResponse = new LabSpringBoot3Response(LocalDateTime.now(), e.getMessage(),
+				wr.getDescription(false));
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(lResponse);
+
+	}
 
 }
