@@ -45,5 +45,7 @@ public class LabSpringBoot3ExceptionHandler extends ResponseEntityExceptionHandl
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(lResponse);
 
 	}
+	
+ 
 
 }

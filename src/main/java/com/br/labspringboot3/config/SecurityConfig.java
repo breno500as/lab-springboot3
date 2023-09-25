@@ -19,17 +19,21 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 
+import com.br.labspringboot3.exception.FilterChainExceptionHandler;
 import com.br.labspringboot3.security.JwtTokenFilter;
 import com.br.labspringboot3.security.JwtTokenProvider;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
 	@Autowired
 	private JwtTokenProvider tokenProvider;
+	
+	 @Autowired
+	    private FilterChainExceptionHandler filterChainExceptionHandler;
 	
 	@Bean
 	PasswordEncoder passwordEncoder() {
@@ -55,16 +59,18 @@ public class SecurityConfig {
      return  http.csrf(AbstractHttpConfigurer::disable)
               .sessionManagement(
             	session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+              .addFilterBefore(this.filterChainExceptionHandler, LogoutFilter.class)
               .addFilterBefore(new JwtTokenFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
               .authorizeHttpRequests(
                     authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers(
 							"/auth/signin",
-							"/auth/refresh/**",
+							"/auth/refresh-token/**",
                     		"/swagger-ui/**",
                     		"/v3/api-docs/**"
                 		).permitAll()
-                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/api/persons").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/api/**").authenticated()  
                         .requestMatchers("/users").denyAll()
                 ).build(); 
     }

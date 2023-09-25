@@ -21,6 +21,10 @@ public class TokenDTO implements Serializable {
 	private String token;
 
 	private String refreshToken;
+	
+	public TokenDTO() {
+		
+	}
 
 	public TokenDTO(String username, Boolean authenticated, Date created, Date expiration, String token,
 			String refreshToken) {
