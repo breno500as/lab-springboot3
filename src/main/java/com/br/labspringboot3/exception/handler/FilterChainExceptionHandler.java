@@ -1,4 +1,4 @@
-package com.br.labspringboot3.exception;
+package com.br.labspringboot3.exception.handler;
 
 import java.io.IOException;
 

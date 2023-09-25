@@ -1,4 +1,4 @@
-package com.br.labspringboot3.exception;
+package com.br.labspringboot3.exception.handler;
 
 import java.time.LocalDateTime;
 
@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.br.labspringboot3.exception.BusinessLabSpringBoot3Exception;
+import com.br.labspringboot3.exception.InvalidJwtAuthenticationException;
+import com.br.labspringboot3.exception.LabSpringBoot3Response;
+import com.br.labspringboot3.exception.NotFoundException;
 
 @RestController
 @ControllerAdvice
