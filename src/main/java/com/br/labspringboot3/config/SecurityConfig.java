@@ -33,7 +33,7 @@ public class SecurityConfig {
 	private JwtTokenProvider tokenProvider;
 	
 	 @Autowired
-	    private FilterChainExceptionHandler filterChainExceptionHandler;
+	 private FilterChainExceptionHandler filterChainExceptionHandler;
 	
 	@Bean
 	PasswordEncoder passwordEncoder() {
