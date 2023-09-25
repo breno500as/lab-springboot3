@@ -27,6 +27,7 @@ import com.br.labspringboot3.security.JwtTokenProvider;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
 	@Autowired
