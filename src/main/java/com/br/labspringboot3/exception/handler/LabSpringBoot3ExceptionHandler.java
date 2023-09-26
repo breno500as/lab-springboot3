@@ -11,8 +11,10 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.br.labspringboot3.exception.BusinessLabSpringBoot3Exception;
+import com.br.labspringboot3.exception.FileStorageException;
 import com.br.labspringboot3.exception.InvalidJwtAuthenticationException;
 import com.br.labspringboot3.exception.LabSpringBoot3Response;
+import com.br.labspringboot3.exception.MyFileNotFoundException;
 import com.br.labspringboot3.exception.NotFoundException;
 
 @RestController
@@ -24,7 +26,6 @@ public class LabSpringBoot3ExceptionHandler extends ResponseEntityExceptionHandl
 		final LabSpringBoot3Response lResponse = new LabSpringBoot3Response(LocalDateTime.now(), e.getMessage(),
 				wr.getDescription(false));
 		return ResponseEntity.internalServerError().body(lResponse);
-
 	}
 
 	@ExceptionHandler(NotFoundException.class)
@@ -32,7 +33,6 @@ public class LabSpringBoot3ExceptionHandler extends ResponseEntityExceptionHandl
 		final LabSpringBoot3Response lResponse = new LabSpringBoot3Response(LocalDateTime.now(), e.getMessage(),
 				wr.getDescription(false));
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(lResponse);
-
 	}
 
 	@ExceptionHandler(BusinessLabSpringBoot3Exception.class)
@@ -40,7 +40,6 @@ public class LabSpringBoot3ExceptionHandler extends ResponseEntityExceptionHandl
 		final LabSpringBoot3Response lResponse = new LabSpringBoot3Response(LocalDateTime.now(), e.getMessage(),
 				wr.getDescription(false));
 		return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(lResponse);
-
 	}
 	
 	@ExceptionHandler(InvalidJwtAuthenticationException.class)
@@ -48,7 +47,21 @@ public class LabSpringBoot3ExceptionHandler extends ResponseEntityExceptionHandl
 		final LabSpringBoot3Response lResponse = new LabSpringBoot3Response(LocalDateTime.now(), e.getMessage(),
 				wr.getDescription(false));
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(lResponse);
-
+	}
+	
+	
+	@ExceptionHandler(FileStorageException.class)
+	public final ResponseEntity<LabSpringBoot3Response> handleFileStorageException(Exception e, WebRequest wr) {
+		final LabSpringBoot3Response lResponse = new LabSpringBoot3Response(LocalDateTime.now(), e.getMessage(),
+				wr.getDescription(false));
+		return ResponseEntity.internalServerError().body(lResponse);
+	}
+	
+	@ExceptionHandler(MyFileNotFoundException.class)
+	public final ResponseEntity<LabSpringBoot3Response> handleMyFileNotFoundException(Exception e, WebRequest wr) {
+		final LabSpringBoot3Response lResponse = new LabSpringBoot3Response(LocalDateTime.now(), e.getMessage(),
+				wr.getDescription(false));
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(lResponse);
 	}
 	
  
