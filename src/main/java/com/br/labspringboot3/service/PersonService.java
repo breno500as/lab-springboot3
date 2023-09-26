@@ -1,11 +1,10 @@
 package com.br.labspringboot3.service;
 
-import java.util.List;
-import java.util.stream.StreamSupport;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.br.labspringboot3.dto.PersonDTO;
@@ -54,12 +53,15 @@ public class PersonService {
 
 	}
 
-	public List<PersonDTO> findAll() {
+	public Page<PersonDTO> findAll(Pageable page) {
 		
 		this.log.info("find all persons");
 		
-		return StreamSupport.stream(this.personRepository.findAll().spliterator(), false)
-				.map(p -> new PersonDTO(p.getId(), p.getName())).toList();
+		
+		var personPageEntity = this.personRepository.findAll(page);
+		
+		return personPageEntity.map(p -> new PersonDTO(p.getId(),p.getName()));
+	
 
 	}
 

@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -16,11 +14,11 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.br.labspringboot3.dto.AccountCredentialsDTO;
+import com.br.labspringboot3.dto.ContentPersonWrapperDTO;
 import com.br.labspringboot3.dto.PersonDTO;
 import com.br.labspringboot3.dto.TokenDTO;
 import com.br.labspringboot3.util.Constants;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -180,6 +178,7 @@ public class PersonControllerTest extends AbstractIntegrationTest {
 		
 		var content = given().spec(specification)
 				.contentType(Constants.CONTENT_TYPE_JSON)
+				.queryParams("page", 0, "size", 10, "direction", "asc")
 				.when()
 				.get()
 				.then()
@@ -188,12 +187,13 @@ public class PersonControllerTest extends AbstractIntegrationTest {
 				.body()
 				.asString();
 		
-		final List<PersonDTO> persons = objectMapper.readValue(content, new TypeReference<List<PersonDTO>>(){});
-		 
 		
-		assertNotNull(persons);
-		assertTrue(persons.size() > 0);
-		assertEquals("Test update", persons.get(0).getName());
+		final ContentPersonWrapperDTO contentPersonDTO = objectMapper.readValue(content, ContentPersonWrapperDTO.class);
+		
+		
+		assertNotNull(contentPersonDTO.getPersons());
+		assertTrue(contentPersonDTO.getPersons().size() > 0);
+		assertEquals("Test update", contentPersonDTO.getPersons().get(0).getName());
 	}
 	
 	

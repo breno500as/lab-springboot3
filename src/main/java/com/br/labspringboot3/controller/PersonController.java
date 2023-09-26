@@ -1,6 +1,10 @@
 package com.br.labspringboot3.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.labspringboot3.dto.PersonDTO;
@@ -70,7 +75,7 @@ public class PersonController {
 
 	@GetMapping(value = "/v2")
 	public ResponseEntity<Iterable<PersonDTO>> findAllV2() {
-		return ResponseEntity.ok().body(this.personService.findAll());
+		return ResponseEntity.ok().body(this.personService.findAll(null));
 	}
 
 	@GetMapping
@@ -80,8 +85,15 @@ public class PersonController {
 			@ApiResponse(responseCode = "500", content = @Content)
 
 	})
-	public ResponseEntity<Iterable<PersonDTO>> findAll() {
-		return ResponseEntity.ok().body(this.personService.findAll());
+	public ResponseEntity<Page<PersonDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "12") Integer size,
+			@RequestParam(value = "direction", defaultValue = "asc") String direction) {
+		
+		var sortDirection = "desc".equalsIgnoreCase(direction)
+				? Direction.DESC : Direction.ASC;
+		
+		
+		return ResponseEntity.ok().body(this.personService.findAll(PageRequest.of(page, size, Sort.by(sortDirection, "name"))));
 	}
 
 	@DeleteMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)

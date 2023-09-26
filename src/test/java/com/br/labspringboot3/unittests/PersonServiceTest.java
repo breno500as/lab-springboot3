@@ -18,6 +18,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import com.br.labspringboot3.dto.PersonDTO;
 import com.br.labspringboot3.entity.PersonEntity;
@@ -95,20 +98,24 @@ class PersonServiceTest {
 
 	@Test
 	void testFindAll() {
-
+		
+		
 		final List<PersonEntity> persons = new ArrayList<>();
 		persons.add(new PersonEntity(1L, "a"));
 		persons.add(new PersonEntity(2L, "b"));
 		persons.add(new PersonEntity(3L, "c"));
+		
+		var pageable = PageRequest.of(0, 10, Sort.by("asc", "name"));
 
-		when(this.personRepository.findAll()).thenReturn(persons);
+		when(this.personRepository.findAll(pageable)).thenReturn(new PageImpl<PersonEntity>(persons));
 
-		var result = this.personService.findAll();
+		var result = this.personService.findAll(pageable);
 
 		assertNotNull(result);
-		assertEquals(3, result.size());
+		assertNotNull(result.getContent());
+		assertEquals(3, result.getContent().size());
 
-		var p1 = result.get(1);
+		var p1 = result.getContent().get(1);
 		assertEquals(2, p1.getId());
 		assertEquals("b", p1.getName());
 
