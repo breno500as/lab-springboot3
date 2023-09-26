@@ -1,5 +1,3 @@
-INSERT INTO PERSON (id,name) VALUES (1,'test');
-INSERT INTO PERSON (id,name) VALUES (2,'test 2');
 INSERT INTO PERMISSION (id, description) VALUES (1,'ADMIN');
 INSERT INTO PERMISSION (id, description) VALUES (2,'USER');
 INSERT INTO PERMISSION (id, description) VALUES (3,'COMMON_USER');

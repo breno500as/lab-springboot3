@@ -16,6 +16,7 @@ public class AbstractIntegrationTest {
 
 	static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
+		@SuppressWarnings("rawtypes")
 		static PostgreSQLContainer<?> postgresqlContainer = new PostgreSQLContainer("postgres:16.0");
 
 		private static void startContainers() {

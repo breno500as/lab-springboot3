@@ -7,6 +7,10 @@ public class Constants {
 
 	public static final String HEADER_AUTHORIZATION = "Authorization";
 
+	public static final String HEADER_PARAM_ORIGIN = "Origin";
+
+	public static final String CONTENT_TYPE_JSON = "application/json";
+
 	private Constants() {
 
 	}
