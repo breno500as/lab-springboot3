@@ -25,12 +25,8 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean package
-    - name: Docker Setup QEMU
-      uses: docker/setup-qemu-action@v3.0.0
-    - name: Docker Buildx Bake
-      uses: docker/bake-action@v3.1.0
     - name: Docker build 
-      run: docker-build -t ${{ secrets.DOCKER_USERNAME }}/lab-springboot3:latest -f docker/Dockerfile .
+      run: docker-compose build
     - name: Push to Docker Hub
       run: |
        docker tag ${{ secrets.DOCKER_USERNAME }}/lab-springboot3:latest ${{ secrets.DOCKER_USERNAME }}/lab-springboot3:${{github.run_id}} 
