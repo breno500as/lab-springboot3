@@ -25,7 +25,9 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean package
-    - name: Docker build
+    - name: Docker build setup
+      uses: docker/bake-action@v4.0.0
+    - name: Docker build 
       run: docker-build -t ${{ secrets.DOCKER_USERNAME }}/lab-springboot3:latest -f docker/Dockerfile .
     - name: Push to Docker Hub
       run: |
