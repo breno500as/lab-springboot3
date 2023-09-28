@@ -26,7 +26,6 @@ jobs:
     - name: Build with Maven
       run: mvn clean package
     - name: Docker build 
-      working-directory: docker
       run: docker-compose build
     - name: Push to Docker Hub
       run: |
