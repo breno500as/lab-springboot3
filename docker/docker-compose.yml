@@ -4,7 +4,6 @@ services:
     image: postgres:16.0
     restart: always
     environment:
-      TZ: America/Sao_Paulo
       POSTGRES_PASSWORD: root
       POSTGRES_USER: postgres
       POSTGRES_DB: lab-springboot3
@@ -16,9 +15,11 @@ services:
       - lab-springboot3-network
   lab-springboot3:
     image: breno500as/lab-springboot3
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: always
     environment:
-      TZ: America/Sao_Paulo
       SPRING.DATASOURCE.URL: jdbc:postgresql://db:5432/lab-springboot3
       SPRING.DATASOURCE.USERNAME: postgres
       SPRING.DATASOURCE.PASSWORD: root
