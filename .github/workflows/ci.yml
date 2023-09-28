@@ -26,7 +26,7 @@ jobs:
     - name: Build with Maven
       run: mvn clean package
     - name: Docker compose build
-      working-directory: /docker
+      working-directory: ./lab-springboot3/docker
       run: docker-compose build
     - name: Push to Docker Hub
       working-directory: ./lab-springboot3/docker
