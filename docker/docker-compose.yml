@@ -17,7 +17,7 @@ services:
     image: breno500as/lab-springboot3
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: Dockerfile
     restart: always
     environment:
       SPRING.DATASOURCE.URL: jdbc:postgresql://db:5432/lab-springboot3
