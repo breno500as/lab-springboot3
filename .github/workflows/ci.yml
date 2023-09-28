@@ -24,10 +24,9 @@ jobs:
         distribution: 'adopt'
         cache: maven
     - name: Build with Maven
-      working-directory: ./lab-springboot3
       run: mvn clean package
     - name: Docker compose build
-      working-directory: ./lab-springboot3/docker
+      working-directory: /docker
       run: docker-compose build
     - name: Push to Docker Hub
       working-directory: ./lab-springboot3/docker
