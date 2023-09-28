@@ -30,4 +30,7 @@ jobs:
       run: docker-compose build
     - name: Push to Docker Hub
       working-directory: docker
-      run: docker tag ${{ secrets.DOCKER_USERNAME }}/lab-springboot3 ${{ secrets.DOCKER_USERNAME }}/lab-springboot3:${{github.run_id}} | docker push  ${{ secrets.DOCKER_USERNAME }}/lab-springboot3:${{github.run_id}}
+      run: |
+       docker tag ${{ secrets.DOCKER_USERNAME }}/lab-springboot3:latest ${{ secrets.DOCKER_USERNAME }}/lab-springboot3:${{github.run_id}} 
+       docker push  ${{ secrets.DOCKER_USERNAME }}/lab-springboot3:${{github.run_id}}
+       docker push ${{ secrets.DOCKER_USERNAME }}/lab-springboot3:latest
