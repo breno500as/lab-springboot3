@@ -38,3 +38,10 @@ jobs:
       run: |
        docker tag ${{ secrets.DOCKER_USERNAME }}/lab-springboot3:latest ${{ secrets.DOCKER_USERNAME }}/lab-springboot3:${{github.run_id}} 
        docker push  ${{ secrets.DOCKER_USERNAME }}/lab-springboot3:${{github.run_id}}
+    - name: Tag, and push image to Amazon ECR
+      run: |
+        docker tag ${{ secrets.DOCKER_USERNAME }}/lab-springboot3:latest ${{ secrets.IMAGE_REPO_URL }}:${{ github.run_id }}
+        docker tag ${{ secrets.DOCKER_USERNAME }}/lab-springboot3:latest ${{ secrets.IMAGE_REPO_URL }}:latest
+
+        docker push ${{ secrets.IMAGE_REPO_URL }}:${{ github.run_id }}
+        docker push ${{ secrets.IMAGE_REPO_URL }}:latest
